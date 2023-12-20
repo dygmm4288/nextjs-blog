@@ -1,0 +1,3 @@
+.navUnderBar {
+  @apply after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-1 after:bg-primaryColor after:rounded-lg;
+}

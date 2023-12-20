@@ -16,9 +16,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang='ko'>
       <body className={inter.className}>
-        <Header />
-        {children}
-        <Footer />
+        <div id='root' className='max-w-4xl mx-auto my-0'>
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

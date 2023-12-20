@@ -1,23 +1,41 @@
+import { BlogPost } from "@/api/contentfulLib";
+import format from "@/lib/dayjs/format";
 import Image from "next/image";
-import Study from "../../assets/images/study.png";
+import Link from "next/link";
+import Badge from "../common/Badge";
+interface Props {
+  post: Omit<BlogPost, "content" | "references" | "relatedPost">;
+}
 
-export default function LastPostItem() {
+export default function LastPostItem({ post }: Props) {
+  const { thumbnail, createdAt, tags, slug, description, category, title } =
+    post;
+
   return (
-    <li>
-      <Image
-        src={Study}
-        alt={"스터디 썸네일 불타는 꼬마 요정이 열심히 타자를 뚜드리고 있음"}
-      />
-      <div>
-        <p>category</p>
-        <p>created At</p>
-      </div>
-      <h2>header</h2>
-      <p>description</p>
-      <ul>
-        <li>tag1</li>
-        <li>tag2</li>
-        <li>tag3</li>
+    <li className='p-10 flex flex-col gap-5'>
+      <Link href={`/posts/${slug}`} className='flex flex-col gap-5'>
+        <div className='flex flex-row justify-between items-center'>
+          <p className='text-2xl font-semibold'>{category}</p>
+          <p>{format(createdAt)}</p>
+        </div>
+        <h2 className='text-5xl font-bold'>{title}</h2>
+        {thumbnail && (
+          <Image
+            className='w-full max-h-96 rounded-2xl object-cover'
+            src={"https:" + thumbnail.src}
+            alt={thumbnail.alt}
+            width={thumbnail.width}
+            height={thumbnail.height}
+          />
+        )}
+      </Link>
+      <p>{description}</p>
+      <ul className='flex flex-row gap-5'>
+        {tags.map((tag: string) => (
+          <li key={slug + tag}>
+            <Badge content={tag} />
+          </li>
+        ))}
       </ul>
     </li>
   );
