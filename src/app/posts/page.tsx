@@ -1,4 +1,4 @@
-import { fetchBlogPosts, getCategoriesCounter } from "@/api/contentfulLib";
+import { fetchBlogPostCategories, fetchBlogPosts } from "@/api/contentfulLib";
 import PostCategories from "@/components/posts/PostCategories";
 import PostItem from "@/components/posts/PostItem";
 import PostSearchWrapper from "@/components/posts/PostSearchWrapper";
@@ -7,14 +7,16 @@ export const revalidate = process.env.REVALIDATE_TIME;
 // 필요한 부분만 클라이언트 컴포넌트로 구현
 // 최대한 SSG를 지향하고 dㅏㄴ되는것을 SSR을 하고 그럼에도 불구하고 안되면  ISR(예외적인 내용)
 interface Props {
-  searchParams: {
+  searchParams?: {
     category?: string;
     search?: string;
   };
 }
 export default async function PostsPage({ searchParams }: Props) {
-  const blogPosts = await fetchBlogPosts({ searchParams });
-  const categoriesCounter = getCategoriesCounter(blogPosts);
+  const [blogPosts, categoriesCounter] = await Promise.all([
+    fetchBlogPosts(searchParams),
+    fetchBlogPostCategories(),
+  ]);
 
   return (
     <main className='flex flex-col gap-4'>
@@ -34,6 +36,7 @@ export default async function PostsPage({ searchParams }: Props) {
             />
           </li>
         ))}
+        {blogPosts.length === 0 && <li>포스트가 존재하지 않습니다.</li>}
       </ul>
     </main>
   );

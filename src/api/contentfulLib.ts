@@ -43,13 +43,10 @@ function parseContentfulBlogWork(blogWorkEntry: BlogWorkEntry) {
     description: blogWorkEntry.fields.description,
   };
 }
-export const fetchBlogPosts = cache(async function ({
-  searchParams,
-}: {
-  searchParams: {
-    category?: string;
-    search?: string;
-  };
+
+export const fetchBlogPosts = cache(async function (searchParams?: {
+  category?: string;
+  search?: string;
 }) {
   const contentfulClient = client;
 
@@ -58,18 +55,24 @@ export const fetchBlogPosts = cache(async function ({
     order: ["fields.createdAt"],
   });
   return blogPostsResult.items
-    .filter((item) => {
-      if (!searchParams.category) return true;
-      return item.fields.category === searchParams.category;
-    })
-    .filter((item) => {
-      if (!searchParams.search) return true;
-      return (
-        item.fields.title.includes(searchParams.search) ||
-        item.fields.description?.includes(searchParams.search)
-      );
-    })
+    .filter(
+      (item) =>
+        filterByCategory(item, searchParams?.category) &&
+        filterBySearch(item, searchParams?.search),
+    )
     .map(parseContenfulBlogPost) as BlogPost[];
+});
+export const fetchBlogPostCategories = cache(async function () {
+  const contentfulClient = client;
+
+  const blogPostsResult = await contentfulClient.getEntries<TypePostSkeleton>({
+    content_type: "post",
+  });
+  return blogPostsResult.items.reduce((categories, item) => {
+    if (!categories[item.fields.category]) categories[item.fields.category] = 0;
+    categories[item.fields.category] += 1;
+    return categories;
+  }, {} as Record<string, number>);
 });
 export const fetchBlogWorks = cache(async function () {
   const contentfulClient = client;
@@ -81,10 +84,15 @@ export const fetchBlogWorks = cache(async function () {
 
   return blogWorksResult.items.map(parseContentfulBlogWork) as BlogWork[];
 });
-export const getCategoriesCounter = cache(function (BlogPosts: BlogPost[]) {
-  return BlogPosts.reduce((acc, cur) => {
-    if (!acc[cur.category]) acc[cur.category] = 0;
-    acc[cur.category] += 1;
-    return acc;
-  }, {} as Record<string, number>);
-});
+
+function filterByCategory(post: BlogPostEntry, category?: string) {
+  if (!category) return true;
+  return post.fields.category === category;
+}
+function filterBySearch(post: BlogPostEntry, search?: string) {
+  if (!search) return true;
+  return (
+    post.fields.title.includes(search) ||
+    post.fields.description?.includes(search)
+  );
+}
