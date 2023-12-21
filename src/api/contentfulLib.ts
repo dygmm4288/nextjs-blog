@@ -36,7 +36,10 @@ function parseContentfulBlogWork(blogWorkEntry: BlogWorkEntry) {
     endTime: blogWorkEntry.fields.endTime,
     focus: blogWorkEntry.fields.focus,
     githubURL: blogWorkEntry.fields.githubURL,
-    projectImg: blogWorkEntry.fields.projectImg,
+    projectImg:
+      blogWorkEntry.fields.projectImg?.map((img) =>
+        parseContentfulContentImage(img),
+      ) || [],
     description: blogWorkEntry.fields.description,
   };
 }
