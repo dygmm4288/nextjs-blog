@@ -43,16 +43,33 @@ function parseContentfulBlogWork(blogWorkEntry: BlogWorkEntry) {
     description: blogWorkEntry.fields.description,
   };
 }
-
-export const fetchBlogPosts = cache(async function () {
+export const fetchBlogPosts = cache(async function ({
+  searchParams,
+}: {
+  searchParams: {
+    category?: string;
+    search?: string;
+  };
+}) {
   const contentfulClient = client;
 
   const blogPostsResult = await contentfulClient.getEntries<TypePostSkeleton>({
     content_type: "post",
     order: ["fields.createdAt"],
   });
-
-  return blogPostsResult.items.map(parseContenfulBlogPost) as BlogPost[];
+  return blogPostsResult.items
+    .filter((item) => {
+      if (!searchParams.category) return true;
+      return item.fields.category === searchParams.category;
+    })
+    .filter((item) => {
+      if (!searchParams.search) return true;
+      return (
+        item.fields.title.includes(searchParams.search) ||
+        item.fields.description?.includes(searchParams.search)
+      );
+    })
+    .map(parseContenfulBlogPost) as BlogPost[];
 });
 export const fetchBlogWorks = cache(async function () {
   const contentfulClient = client;

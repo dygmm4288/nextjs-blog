@@ -7,14 +7,13 @@ export const revalidate = process.env.REVALIDATE_TIME;
 // 필요한 부분만 클라이언트 컴포넌트로 구현
 // 최대한 SSG를 지향하고 dㅏㄴ되는것을 SSR을 하고 그럼에도 불구하고 안되면  ISR(예외적인 내용)
 interface Props {
-  params: {
-    slug: string;
+  searchParams: {
+    category?: string;
+    search?: string;
   };
 }
-export default async function PostsPage({ params }: Props) {
-  console.log(params);
-  const blogPosts = await fetchBlogPosts();
-
+export default async function PostsPage({ searchParams }: Props) {
+  const blogPosts = await fetchBlogPosts({ searchParams });
   const categoriesCounter = getCategoriesCounter(blogPosts);
 
   return (
@@ -25,7 +24,7 @@ export default async function PostsPage({ params }: Props) {
         {blogPosts.map(({ slug, title, description, category, createdAt }) => (
           <li
             key={slug}
-            className='relative  hover:before:h-full hover:before:w-3 hover:before:absolute hover:before:-left-4 hover:before:bg-accentColor hover:before:rounded-lg'>
+            className='relative hover:before:h-full hover:before:w-3 hover:before:absolute hover:before:-left-4 hover:before:bg-accentColor hover:before:rounded-lg'>
             <PostItem
               title={title}
               description={description}
