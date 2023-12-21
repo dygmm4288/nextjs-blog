@@ -29,17 +29,19 @@ export default function PostCategories({ categoriesCounter }: Props) {
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category");
 
+  const isSelected = (category: string) => selectedCategory === category;
+
   return (
     <ul className='flex flex-row gap-5 flex-wrap justify-center my-16'>
       {/* {Object.keys(categoriesCounter).map((category) => ( */}
       {Object.keys(exampleCategoriesCounter).map((category) => (
         <li
           key={category}
-          className={
-            selectedCategory === category ? "font-bold text-accentColor" : ""
-          }>
+          className={isSelected(category) ? "font-bold text-accentColor" : ""}>
           <Link
-            href={`/posts/?category=${category}`}>{`${category}(${exampleCategoriesCounter[category]})`}</Link>
+            href={
+              !isSelected(category) ? `/posts/?category=${category}` : "/posts"
+            }>{`${category}(${exampleCategoriesCounter[category]})`}</Link>
         </li>
       ))}
     </ul>

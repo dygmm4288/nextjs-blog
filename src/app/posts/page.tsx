@@ -3,8 +3,16 @@ import PostCategories from "@/components/posts/PostCategories";
 import PostItem from "@/components/posts/PostItem";
 import PostSearchWrapper from "@/components/posts/PostSearchWrapper";
 export const revalidate = process.env.REVALIDATE_TIME;
-
-export default async function PostsPage() {
+// 서버 컴포넌트로 최대한 구현하는게 좋다.(사용자 입장에서 빠르게 볼 수 아ㅣㅆ음. )
+// 필요한 부분만 클라이언트 컴포넌트로 구현
+// 최대한 SSG를 지향하고 dㅏㄴ되는것을 SSR을 하고 그럼에도 불구하고 안되면  ISR(예외적인 내용)
+interface Props {
+  params: {
+    slug: string;
+  };
+}
+export default async function PostsPage({ params }: Props) {
+  console.log(params);
   const blogPosts = await fetchBlogPosts();
 
   const categoriesCounter = getCategoriesCounter(blogPosts);
