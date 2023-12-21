@@ -44,6 +44,16 @@ function parseContentfulBlogWork(blogWorkEntry: BlogWorkEntry) {
   };
 }
 
+export const fetchBlogPost = cache(async function (slug: string) {
+  const contentfulClient = client;
+
+  const blogPostResult = await contentfulClient.getEntries<TypePostSkeleton>({
+    content_type: "post",
+    "fields.slug[match]": slug,
+  });
+
+  return parseContenfulBlogPost(blogPostResult.items[0] as BlogPostEntry);
+});
 export const fetchBlogPosts = cache(async function (searchParams?: {
   category?: string;
   search?: string;
