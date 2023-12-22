@@ -167,8 +167,22 @@ font-family: 'IBM Plex Sans KR', sans-serif;
 html,
 body {
   max-width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
 }
+/* body {
+  background: url("../assets/images/code3.png"),
+    radial-gradient(
+      circle,
+      rgba(63, 94, 251, 0.4290091036414566) 0%,
+      rgba(97, 80, 252, 0.3617822128851541) 58%,
+      rgba(238, 70, 252, 0.43461134453781514) 100%
+    );
+  background-blend-mode: soft-light;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+} */
 
 a {
   color: inherit;

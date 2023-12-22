@@ -18,7 +18,17 @@ module.exports = {
       backgroundColor2: "#EDEDED",
       backgroundColor3: "#D9D9D9",
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        "load-up": {
+          "0%": { transform: "translateY(2rem)", opacity: 0 },
+          "100%": { transform: "translateY(0)", opacity: 1 },
+        },
+      },
+      animation: {
+        "load-up": "load-up 0.5s ease-out",
+      },
+    },
   },
   plugins: [],
 };

@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-
+const path = require("path");
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -8,6 +8,9 @@ const nextConfig = {
         hostname: "images.ctfassets.net",
       },
     ],
+  },
+  sassOptions: {
+    includesPaths: [path.join(__dirname, "styles")],
   },
 };
 

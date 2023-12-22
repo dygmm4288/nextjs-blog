@@ -12,24 +12,26 @@ export default function LastPostItem({ post }: Props) {
     post;
 
   return (
-    <li className='p-10 flex flex-col gap-5'>
+    <li className='p-4 flex flex-col gap-5 animate-load-up'>
       <Link href={`/posts/${slug}`} className='flex flex-col gap-5'>
         <div className='flex flex-row justify-between items-center'>
           <p className='text-2xl font-semibold'>{category}</p>
           <p>{format(createdAt)}</p>
         </div>
         <h2 className='text-5xl font-bold'>{title}</h2>
-        {thumbnail && (
-          <Image
-            className='w-full max-h-96 rounded-2xl object-cover'
-            src={"https:" + thumbnail.src}
-            alt={thumbnail.alt}
-            width={thumbnail.width}
-            height={thumbnail.height}
-          />
-        )}
+        <div className='overflow-hidden rounded-2xl'>
+          {thumbnail && (
+            <Image
+              className='w-full max-h-96  object-cover hover:scale-105 transition-transform'
+              src={"https:" + thumbnail.src}
+              alt={thumbnail.alt}
+              width={thumbnail.width}
+              height={thumbnail.height}
+            />
+          )}
+        </div>
       </Link>
-      <p>{description}</p>
+      <p className='truncate text-ellipsis overflow-hidden'>{description}</p>
       <ul className='flex flex-row gap-5'>
         {tags.map((tag: string) => (
           <li key={slug + tag}>

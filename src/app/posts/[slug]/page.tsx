@@ -4,6 +4,8 @@ import format from "@/lib/dayjs/format";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import styles from "./markdown.module.scss";
+
 interface Props {
   params: {
     slug: string;
@@ -48,7 +50,7 @@ export default async function Post({ params }: Props) {
           ))}
         </ul>
       </header>
-      <div>
+      <div className={styles["markdown"]}>
         <ReactMarkdown>{content}</ReactMarkdown>
       </div>
     </section>
