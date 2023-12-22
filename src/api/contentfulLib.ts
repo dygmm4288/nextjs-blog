@@ -8,10 +8,10 @@ import { parseContentfulContentImage } from "./contentfulImage";
 type BlogPostEntry = Entry<TypePostSkeleton, undefined, string>;
 type BlogWorkEntry = Entry<TypeWorkSkeleton, undefined, string>;
 
-export type BlogPost = ReturnType<typeof parseContenfulBlogPost>;
+export type BlogPost = ReturnType<typeof parseContentfulBlogPost>;
 export type BlogWork = ReturnType<typeof parseContentfulBlogWork>;
 
-function parseContenfulBlogPost(blogPostEntry: BlogPostEntry) {
+function parseContentfulBlogPost(blogPostEntry: BlogPostEntry) {
   return {
     slug: blogPostEntry.fields.slug,
     title: blogPostEntry.fields.title,
@@ -32,8 +32,8 @@ function parseContentfulBlogWork(blogWorkEntry: BlogWorkEntry) {
     title: blogWorkEntry.fields.title,
     websiteURL: blogWorkEntry.fields.websiteURL,
     stack: blogWorkEntry.fields.stack,
-    startTime: blogWorkEntry.fields.startTime,
-    endTime: blogWorkEntry.fields.endTime,
+    startTime: new Date(String(blogWorkEntry.fields.startTime)),
+    endTime: new Date(String(blogWorkEntry.fields.endTime)),
     focus: blogWorkEntry.fields.focus,
     githubURL: blogWorkEntry.fields.githubURL,
     projectImg:
@@ -52,8 +52,20 @@ export const fetchBlogPost = cache(async function (slug: string) {
     "fields.slug[match]": slug,
   });
 
-  return parseContenfulBlogPost(blogPostResult.items[0] as BlogPostEntry);
+  return parseContentfulBlogPost(blogPostResult.items[0] as BlogPostEntry);
 });
+
+export const fetchBlogWork = cache(async function (slug: string) {
+  const contentfulClient = client;
+
+  const blogWorkResult = await contentfulClient.getEntries<TypeWorkSkeleton>({
+    content_type: "work",
+    "fields.slug[match]": slug,
+  });
+
+  return parseContentfulBlogWork(blogWorkResult.items[0] as BlogWorkEntry);
+});
+
 export const fetchBlogPosts = cache(async function (searchParams?: {
   category?: string;
   search?: string;
@@ -70,8 +82,9 @@ export const fetchBlogPosts = cache(async function (searchParams?: {
         filterByCategory(item, searchParams?.category) &&
         filterBySearch(item, searchParams?.search),
     )
-    .map(parseContenfulBlogPost) as BlogPost[];
+    .map(parseContentfulBlogPost) as BlogPost[];
 });
+
 export const fetchBlogPostCategories = cache(async function () {
   const contentfulClient = client;
 
@@ -84,13 +97,13 @@ export const fetchBlogPostCategories = cache(async function () {
     return categories;
   }, {} as Record<string, number>);
 });
+
 export const fetchBlogWorks = cache(async function () {
   const contentfulClient = client;
 
   const blogWorksResult = await contentfulClient.getEntries<TypeWorkSkeleton>({
     content_type: "work",
   });
-  console.log(blogWorksResult);
 
   return blogWorksResult.items.map(parseContentfulBlogWork) as BlogWork[];
 });
@@ -99,6 +112,7 @@ function filterByCategory(post: BlogPostEntry, category?: string) {
   if (!category) return true;
   return post.fields.category === category;
 }
+
 function filterBySearch(post: BlogPostEntry, search?: string) {
   if (!search) return true;
   return (
