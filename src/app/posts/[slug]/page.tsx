@@ -40,11 +40,11 @@ export default async function Post({ params }: Props) {
           height={thumbnail?.height}
         />
 
-        <div className='flex flex-row items-center justify-between'>
-          <h1 className='text-6xl font-bold'>{title}</h1>
-          <p>{format(createdAt)}</p>
+        <div className='flex flex-col sm:items-center justify-between'>
+          <h1 className='text-4xl sm:text-6xl font-bold my-2'>{title}</h1>
+          <p className='self-end sm:self-auto'>{format(createdAt)}</p>
         </div>
-        <ul className='flex flex-row gap-6'>
+        <ul className='flex flex-row justify-center sm:justify-start gap-4 sm:gap-6'>
           {tags.map((tag) => (
             <Badge key={tag} content={tag} />
           ))}

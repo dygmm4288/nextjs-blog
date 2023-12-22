@@ -22,11 +22,11 @@ export default async function PostsPage({ searchParams }: Props) {
     <main className='flex flex-col gap-4'>
       <PostCategories categoriesCounter={categoriesCounter} />
       <PostSearchWrapper />
-      <ul className='bg-backgroundColor3 rounded-2xl p-6'>
+      <ul className='bg-backgroundColor3 rounded-2xl p-4'>
         {blogPosts.map(({ slug, title, description, category, createdAt }) => (
           <li
             key={slug}
-            className='relative hover:before:h-full hover:before:w-3 hover:before:absolute hover:before:-left-4 hover:before:bg-accentColor hover:before:rounded-lg'>
+            className='relative hover:before:h-full hover:before:w-2 sm:hover:before:w-3 hover:before:absolute hover:before:-left-2 hover:before:bg-accentColor hover:before:rounded-lg'>
             <PostItem
               title={title}
               description={description}

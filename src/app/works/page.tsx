@@ -23,10 +23,12 @@ export default async function Works() {
                       height={projectImg[0]!.height}
                     />
                   </div>
-                  <h3 className='text-2xl font-bold'>{title}</h3>
-                  <span>{`${formatShort(startTime)} ~ ${formatShort(
-                    endTime,
-                  )} `}</span>
+                  <h3 className='text-lg text-center sm:text-left sm:text-2xl font-bold'>
+                    {title}
+                  </h3>
+                  <span className='text-xs text-center '>{`${formatShort(
+                    startTime,
+                  )} ~ ${formatShort(endTime)} `}</span>
                   <p className='text-lg opacity-50 hover:opacity-100 hover:text-accentColor'>
                     {description}
                   </p>

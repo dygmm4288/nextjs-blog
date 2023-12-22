@@ -15,7 +15,7 @@ export default function PostCategories({ categoriesCounter }: Props) {
   const isSelected = (category: string) => selectedCategory === category;
 
   return (
-    <ul className='flex flex-row gap-5 flex-wrap justify-center my-16'>
+    <ul className='flex flex-row gap-5 flex-wrap justify-center my-6 sm:my-16'>
       {/* {Object.keys(categoriesCounter).map((category) => ( */}
       {Object.keys(categoriesCounter).map((category) => (
         <li
