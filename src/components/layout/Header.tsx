@@ -8,11 +8,15 @@ const sourceData = [
   { src: "/works", name: "work" },
   { src: "/posts", name: "post" },
 ];
+function isCurrentSrc(src: string, pathname: string) {
+  if (src === "/") return src === pathname;
+  return pathname.startsWith(src);
+}
 
 export default function Header({}) {
   const pathname = usePathname();
   return (
-    <div className='flex flex-row justify-between items-center my-6'>
+    <div className='flex flex-col gap-4 justify-between items-center my-6 sm:flex-row'>
       <Link href={"/"}>
         <h1 className='text-5xl font-bold'>Ea-Syno.dev</h1>
       </Link>
@@ -22,7 +26,7 @@ export default function Header({}) {
             <li
               key={src}
               className={`relative ${
-                pathname === src ? styles.navUnderBar : ""
+                isCurrentSrc(src, pathname) ? styles.navUnderBar : ""
               }`}>
               <Link
                 href={src}
