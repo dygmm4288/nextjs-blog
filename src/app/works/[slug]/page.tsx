@@ -79,7 +79,7 @@ export default async function WorkDetail({ params }: Props) {
         <Image
           key={item?.src}
           className='rounded-lg'
-          src={"https:" + item?.src}
+          src={item?.src || ""}
           width={item?.width}
           height={item?.height}
           alt={item?.alt as string}

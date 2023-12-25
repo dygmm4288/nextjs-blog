@@ -23,7 +23,7 @@ export default function LastPostItem({ post }: Props) {
           {thumbnail && (
             <Image
               className='w-full max-h-96  object-cover hover:scale-105 transition-transform'
-              src={"https:" + thumbnail.src}
+              src={thumbnail.src}
               alt={thumbnail.alt}
               width={thumbnail.width}
               height={thumbnail.height}

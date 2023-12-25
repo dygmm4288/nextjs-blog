@@ -34,7 +34,7 @@ export default async function Post({ params }: Props) {
         </Link>
         <Image
           className='rounded-2xl w-full h-96 object-cover'
-          src={"https:" + thumbnail?.src}
+          src={thumbnail?.src || ""}
           alt={thumbnail?.alt as string}
           width={thumbnail?.width}
           height={thumbnail?.height}

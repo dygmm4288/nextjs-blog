@@ -13,9 +13,15 @@ export function parseContentfulContentImage(
   if (!asset || !("fields" in asset)) return null;
 
   return {
-    src: asset.fields.file?.url || "",
+    src: parseImgSrc(asset.fields.file?.url) || "",
     alt: asset.fields.description || "",
     width: asset.fields.file?.details?.image?.width || 0,
     height: asset.fields.file?.details?.image?.height || 0,
   };
+}
+
+
+function parseImgSrc(src:string | undefined) {
+  if(!src) return null;
+  if(src.startsWith('//')) return `https:${src}`;
 }

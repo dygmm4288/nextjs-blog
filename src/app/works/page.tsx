@@ -17,7 +17,7 @@ export default async function Works() {
                   <div className='rounded-2xl overflow-hidden'>
                     <Image
                       className='object-cover w-full h-48 hover:scale-105 transition-transform'
-                      src={"https:" + projectImg[0]!.src}
+                      src={projectImg[0]!.src}
                       alt='project img'
                       width={projectImg[0]!.width}
                       height={projectImg[0]!.height}
