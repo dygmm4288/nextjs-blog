@@ -12,12 +12,14 @@ export default async function Works() {
       <ul className='p-4 grid grid-cols-2 gap-4'>
         {works.map(
           ({ slug, title, projectImg, startTime, endTime, participants }) => (
-            <li key={slug} className='rounded-2xl shadow-xl'>
+            <li
+              key={slug}
+              className='rounded-2xl shadow-xl hover:scale-105 transition-transform'>
               <Link href={`/works/${slug}`}>
                 <section className='p-4 flex flex-col gap-4'>
                   <div className='rounded-2xl overflow-hidden border-b-2'>
                     <Image
-                      className='object-cover w-full h-48 hover:scale-105 transition-transform'
+                      className='object-cover w-full h-48 '
                       src={projectImg[0]!.src}
                       alt='project img'
                       width={projectImg[0]!.width}
