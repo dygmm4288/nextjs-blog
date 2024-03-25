@@ -104,7 +104,9 @@ export const fetchBlogWorks = cache(async function () {
     content_type: "work",
   });
 
-  return blogWorksResult.items.map(parseContentfulBlogWork) as BlogWork[];
+  return blogWorksResult.items
+    .map(parseContentfulBlogWork)
+    .sort((a, b) => b.endTime.getTime() - a.endTime.getTime()) as BlogWork[];
 });
 
 function filterByCategory(post: BlogPostEntry, category?: string) {
