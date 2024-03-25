@@ -6,15 +6,16 @@ import Link from "next/link";
 export const revalidate = process.env.REVALIDATE_TIME;
 export default async function Works() {
   const works = await fetchBlogWorks();
+
   return (
     <div className='w-full h-full'>
       <ul className='p-4 grid grid-cols-2 gap-4'>
         {works.map(
-          ({ slug, title, description, projectImg, startTime, endTime }) => (
-            <li key={slug}>
+          ({ slug, title, projectImg, startTime, endTime, participants }) => (
+            <li key={slug} className='rounded-2xl shadow-xl'>
               <Link href={`/works/${slug}`}>
                 <section className='p-4 flex flex-col gap-4'>
-                  <div className='rounded-2xl overflow-hidden'>
+                  <div className='rounded-2xl overflow-hidden border-b-2'>
                     <Image
                       className='object-cover w-full h-48 hover:scale-105 transition-transform'
                       src={projectImg[0]!.src}
@@ -23,15 +24,13 @@ export default async function Works() {
                       height={projectImg[0]!.height}
                     />
                   </div>
-                  <h3 className='text-lg text-center sm:text-left sm:text-2xl font-bold'>
+                  <h3 className='text-lg text-left sm:text-2xl font-bold border-t-2 border-solid border-t-primaryColor pt-2'>
                     {title}
                   </h3>
-                  <span className='text-xs text-center '>{`${formatShort(
+                  <span className='text-xl'>{`${formatShort(
                     startTime,
                   )} ~ ${formatShort(endTime)} `}</span>
-                  <p className='text-lg opacity-50 hover:opacity-100 hover:text-accentColor'>
-                    {description}
-                  </p>
+                  <span>{participants}</span>
                 </section>
               </Link>
             </li>
