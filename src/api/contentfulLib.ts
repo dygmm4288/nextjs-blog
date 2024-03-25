@@ -31,16 +31,15 @@ function parseContentfulBlogWork(blogWorkEntry: BlogWorkEntry) {
     slug: blogWorkEntry.fields.slug,
     title: blogWorkEntry.fields.title,
     websiteURL: blogWorkEntry.fields.websiteURL,
-    stack: blogWorkEntry.fields.stack,
     startTime: new Date(String(blogWorkEntry.fields.startTime)),
     endTime: new Date(String(blogWorkEntry.fields.endTime)),
-    focus: blogWorkEntry.fields.focus,
     githubURL: blogWorkEntry.fields.githubURL,
     projectImg:
       blogWorkEntry.fields.projectImg?.map((img) =>
         parseContentfulContentImage(img),
       ) || [],
     description: blogWorkEntry.fields.description,
+    participants: blogWorkEntry.fields.participants,
   };
 }
 

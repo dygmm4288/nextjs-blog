@@ -10,13 +10,12 @@ export interface TypeWorkFields {
   slug: EntryFieldTypes.Symbol;
   title: EntryFieldTypes.Symbol;
   websiteURL?: EntryFieldTypes.Symbol;
-  stack: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
   startTime?: EntryFieldTypes.Date;
   endTime?: EntryFieldTypes.Date;
-  focus?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
   githubURL: EntryFieldTypes.Symbol;
   projectImg?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
   description: EntryFieldTypes.Text;
+  participants: EntryFieldTypes.Text;
 }
 
 export type TypeWorkSkeleton = EntrySkeletonType<TypeWorkFields, "work">;
