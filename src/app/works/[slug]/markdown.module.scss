@@ -1,0 +1,52 @@
+.markdown {
+  font-family: Helvetica, Arial, Freesans, clean, sans-serif;
+  * {
+    @apply text-lg;
+  }
+  margin: 0;
+
+  a {
+    @apply text-accentColor underline opacity-100;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-textColor py-4;
+  }
+
+  h1 {
+    @apply text-4xl mt-16;
+    &:first-child {
+      @apply mt-2;
+    }
+  }
+
+  h3 {
+    @apply text-2xl my-4 bg-header3 p-1 text-[white];
+    a {
+      color: inherit;
+      font-size: inherit;
+    }
+  }
+
+  ol,
+  ul {
+    @apply pl-6;
+    li {
+      @apply my-3;
+    }
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+    ol {
+      list-style-type: lower-alpha;
+    }
+  }
+}

@@ -17,6 +17,7 @@ module.exports = {
       backgroundColor1: "#FFFFFF",
       backgroundColor2: "#EDEDED",
       backgroundColor3: "#D9D9D9",
+      header3: "rgba(20,58,78,0.9)",
     },
     extend: {
       keyframes: {
