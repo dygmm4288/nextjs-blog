@@ -1,4 +1,17 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const path = require("path");
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.ctfassets.net",
+      },
+    ],
+  },
+  sassOptions: {
+    includesPaths: [path.join(__dirname, "styles")],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
