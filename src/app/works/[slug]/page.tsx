@@ -1,5 +1,5 @@
 import { fetchBlogWork } from "@/api/contentfulLib";
-import PopupImage from "@/components/\bworks/PopupImage";
+import ImageWithLink from "@/components/works/ImageWithLink";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ReactMarkdown from "react-markdown";
 import styles from "./markdown.module.scss";
@@ -24,7 +24,7 @@ export default async function WorkDetail({ params }: Props) {
         </Breadcrumb>
       </div>
       <div className={styles["markdown"]}>
-        <ReactMarkdown components={{ img: PopupImage }}>
+        <ReactMarkdown components={{ img: ImageWithLink }}>
           {description}
         </ReactMarkdown>
       </div>
