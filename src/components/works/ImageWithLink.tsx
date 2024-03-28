@@ -1,3 +1,5 @@
+import { parseImgSrc } from "@/api/contentfulImage";
+import Image from "next/image";
 import Link from "next/link";
 
 const ImageWithLink = (props: JSX.IntrinsicElements["img"] | undefined) => {
@@ -5,9 +7,9 @@ const ImageWithLink = (props: JSX.IntrinsicElements["img"] | undefined) => {
   const { src, alt, width, height } = props;
 
   return (
-    <Link href={src || ""}>
-      <img
-        src={src || ""}
+    <Link href={src || ""} target='_blank'>
+      <Image
+        src={parseImgSrc(src) || ""}
         alt={alt || ""}
         width={(width && +width) || 1200}
         height={(height && +height) || 300}

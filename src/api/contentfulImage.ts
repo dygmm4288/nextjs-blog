@@ -20,8 +20,7 @@ export function parseContentfulContentImage(
   };
 }
 
-
-function parseImgSrc(src:string | undefined) {
-  if(!src) return null;
-  if(src.startsWith('//')) return `https:${src}`;
+export function parseImgSrc(src: string | undefined) {
+  if (!src) return null;
+  if (src.startsWith("//")) return `https:${src}`;
 }

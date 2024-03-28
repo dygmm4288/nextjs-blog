@@ -1,4 +1,5 @@
 import { fetchBlogWork } from "@/api/contentfulLib";
+import AWithBlank from "@/components/\bworks/AWithBlack";
 import ImageWithLink from "@/components/works/ImageWithLink";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ReactMarkdown from "react-markdown";
@@ -24,7 +25,7 @@ export default async function WorkDetail({ params }: Props) {
         </Breadcrumb>
       </div>
       <div className={styles["markdown"]}>
-        <ReactMarkdown components={{ img: ImageWithLink }}>
+        <ReactMarkdown components={{ img: ImageWithLink, a: AWithBlank }}>
           {description}
         </ReactMarkdown>
       </div>
